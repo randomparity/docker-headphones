@@ -1,17 +1,19 @@
 FROM randomparity/docker-supervisor:latest
-
 MAINTAINER David Christensen <randomparity@gmail.com>
 
-ENV LAST_UPDATE_HEADPHONES 2015-01-16
+ENV HEADPHONES_LAST_UPDATE 2015-01-26
 
-# Install prerequisites and clone the SickBeard repository
-RUN apt-get -qy install python-openssl && \
+# Install prerequisites
+RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -qy upgrade && \
+    DEBIAN_FRONTEND=noninteractive apt-get -qy install \
+    python-openssl && \
     mkdir /opt/headphones && \
     git clone https://github.com/rembo10/headphones.git /opt/headphones && \
     chown -R $BASE_USER:$BASE_GROUP /opt/headphones
 
 # We've got everything we need so clear out the apt data
-RUN apt-get clean && \
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/tmp/* && \
     rm -rf /tmp/*
