@@ -1,0 +1,1 @@
+docker run -d --restart always -h headphones --name headphones -v /mnt/docker/download:/download -v /mnt/docker/headphones:/config -v /mnt/docker/music:/media -v /etc/localtime:/etc/localtime:ro -v /etc/apt/apt-conf.d/01proxy:/etc/apt/apt-conf.d/01proxy:ro -p 8181:8181 randomparity/docker-headphones:latest
